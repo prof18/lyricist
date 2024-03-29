@@ -114,10 +114,15 @@ internal class LyricistXmlSymbolProcessor(
             packageName = config.packageName,
             fileName = fileName
         ).use { stream ->
+            stream.write(
+                """
+                |package ${config.packageName}
+                |
+                """.trimMargin().toByteArray()
+            )
             if (config.generateComposeAccessors) {
                 stream.write(
                     """
-                    |package ${config.packageName}
                     |
                     |import androidx.compose.runtime.Composable
                     |import androidx.compose.runtime.ProvidableCompositionLocal
@@ -127,15 +132,6 @@ internal class LyricistXmlSymbolProcessor(
                     |import cafe.adriel.lyricist.LanguageTag
                     |import cafe.adriel.lyricist.rememberStrings
                     |import cafe.adriel.lyricist.ProvideStrings
-                    |
-                    """.trimMargin().toByteArray()
-                )
-            } else {
-                stream.write(
-                    """
-                    |package ${config.packageName}
-                    |
-                    |import cafe.adriel.lyricist.LanguageTag
                     |
                     """.trimMargin().toByteArray()
                 )
@@ -151,15 +147,15 @@ internal class LyricistXmlSymbolProcessor(
                 |$localesOutput
                 |}
                 |
-                |public val $stringsName: Map<LanguageTag, $fileName> = mapOf(
-                |$translationMappingOutput
-                |)
-                |
                 """.trimMargin().toByteArray()
             )
             if (config.generateComposeAccessors) {
                 stream.write(
                     """
+                    |
+                    |public val $stringsName: Map<LanguageTag, $fileName> = mapOf(
+                    |$translationMappingOutput
+                    |)
                     |
                     |public val Local$fileName: ProvidableCompositionLocal<$fileName> = 
                     |    staticCompositionLocalOf { $defaultStringsOutput }
