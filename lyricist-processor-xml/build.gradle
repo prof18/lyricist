@@ -1,4 +1,11 @@
-apply from: "../kotlin-module.gradle"
+//apply plugin: 'kotlin'
+
+plugins {
+    id('kotlin')
+    id('maven-publish')
+}
+
+group = "lyricist-processor-xml"
 
 dependencies {
     implementation libs.ksp
@@ -6,4 +13,19 @@ dependencies {
     implementation libs.konsumeXml
 }
 
-apply plugin: 'maven-publish'
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs += '-Xexplicit-api=strict'
+    }
+}
+
+kotlin {
+    jvmToolchain(8)
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
