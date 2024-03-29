@@ -1,5 +1,3 @@
-//apply plugin: 'kotlin'
-
 plugins {
     id('kotlin')
     id('com.vanniktech.maven.publish')
