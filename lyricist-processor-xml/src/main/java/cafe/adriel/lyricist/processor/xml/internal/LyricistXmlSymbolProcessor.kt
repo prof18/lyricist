@@ -153,13 +153,14 @@ internal class LyricistXmlSymbolProcessor(
                 |
                 |public val $stringsName: Map<LanguageTag, $fileName> = mapOf(
                 |$translationMappingOutput
-                |
                 |)
+                |
                 """.trimMargin().toByteArray()
             )
             if (config.generateComposeAccessors) {
                 stream.write(
                     """
+                    |
                     |public val Local$fileName: ProvidableCompositionLocal<$fileName> = 
                     |    staticCompositionLocalOf { $defaultStringsOutput }
                     |
