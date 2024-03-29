@@ -2,7 +2,7 @@
 
 plugins {
     id('kotlin')
-    id('maven-publish')
+    id('com.vanniktech.maven.publish')
 }
 
 group = "lyricist-processor-xml"
